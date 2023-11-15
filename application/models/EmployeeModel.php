@@ -5,7 +5,6 @@ class EmployeeModel extends CI_Model{
 
     public function getEmployee(){
         $query = $this->db->get('employees');
-
         return $query->result();
     }
 
