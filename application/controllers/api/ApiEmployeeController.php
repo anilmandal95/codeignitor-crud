@@ -23,6 +23,66 @@ class ApiEmployeeController extends RestController{
        // echo "This is from getEmployee method";
     }
 
+    public function storeEmployee_post(){
+        $employee = new EmployeeModel;
+        $data =[
+            'name' => $this->input->post('name'),
+            'email' => $this->input->post('email'),
+            'profile_image' => $this->input->post('profile_image')
+        ];
+        // $this->response($data,200);
+        $result = $employee->postEmployee($data);
+       if ($result > 0) {
+        $this->response([
+            'status' => true,
+            'message' => 'Employee created successfully'
+        ], RestController::HTTP_OK);
+
+       }else {
+        $this->response([
+            'status' => false,
+            'message' => 'Failed to create employee'
+        ], RestController::HTTP_BAD_REQUEST);
+       }
+        //echo "employee data will store here";
+
+    }
+
+    public function findEmployee_get($id){
+
+        $employee = new EmployeeModel;
+
+        $result = $employee->editEmployee($id);
+        $this->response($result,200);
+       // echo "Here you can find employee";
+    }
+
+    public function updateEmployeeData_put($id){
+        $employee = new EmployeeModel;
+        $data =[
+            'name' => $this->input->put('name'),
+            'email' => $this->input->put('email'),
+            'profile_image' => $this->input->put('profile_image')
+        ];
+        // $this->response($data,200);
+        $update_result = $employee->updateEmployee($id, $data);
+       if ($update_result > 0) {
+        $this->response([
+            'status' => true,
+            'message' => 'Employee updated successfully'
+        ], RestController::HTTP_OK);
+
+       }else {
+        $this->response([
+            'status' => false,
+            'message' => 'Failed to update employee'
+        ], RestController::HTTP_BAD_REQUEST);
+       }
+
+       // echo "here we will update the thing";
+
+    }
+
 }
 
 
